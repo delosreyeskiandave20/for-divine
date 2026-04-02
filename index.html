@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>do you still love me? 🐻🐻‍❄️</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --pink: #ff6b9d; --pink-lt: #ffb3cc; --pink-bg: #fff0f5;
+    --mocha: #8b5e3c; --mocha-lt: #0a0a0a; --cream: #fff8f0;
+    --brown: #5c3d1e; --milk: #fefaf5; --text: #be7b54;
+    --shadow: rgba(223, 150, 95, 0.18);
+  }
+  html, body { width: 100%; min-height: 100vh; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; position: relative; overflow-x: hidden;
+  }
+  .bg-blob {
+    position: fixed; border-radius: 50%; filter: blur(60px);
+    opacity: 0.35; pointer-events: none; z-index: 0;
+    animation: blobDrift 8s ease-in-out infinite alternate;
+  }
+  .blob1 { width: 380px; height: 380px; background: #ffd6e7; top: -80px; left: -80px; }
+  .blob2 { width: 300px; height: 300px; background: #ffe5c4; bottom: -60px; right: -60px; animation-delay: 2s; }
+  .blob3 { width: 220px; height: 220px; background: #ffc8dd; top: 40%; left: 60%; animation-delay: 1s; }
+  @keyframes blobDrift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(20px,20px) scale(1.08); }
+  }
+  .card {
+    position: relative; z-index: 2;
+    background: var(--milk);
+    border-radius: 32px;
+    padding: 2.2rem 2.5rem 2rem;
+    max-width: 440px; width: 92%;
+    box-shadow: 0 20px 60px var(--shadow), 0 4px 16px rgba(168, 54, 92, 0.12);
+    border: 1.5px solid rgba(255,182,203,0.5);
+    text-align: center; overflow: hidden;
+  }
+  .card::before, .card::after {
+    content:''; position:absolute; width:120px; height:120px;
+    border-radius:50%; opacity:0.07;
+  }
+  .card::before { background:var(--pink); top:-40px; left:-40px; }
+  .card::after  { background:var(--mocha); bottom:-40px; right:-40px; }
+  .screen { display: none; flex-direction: column; align-items: center; gap: 1rem; }
+  .screen.active { display: flex; animation: fadeSlideIn 0.5s ease forwards; }
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .bear-img {
+    width: 110px; height: 110px; object-fit: contain;
+    animation: bearFloat 3s ease-in-out infinite;
+  }
+  @keyframes bearFloat {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-9px); }
+  }
+  .bear-img.shake-bear { animation: bearShake 0.45s ease; }
+  @keyframes bearShake {
+    0%,100% { transform: translateX(0) rotate(0); }
+    20%      { transform: translateX(-8px) rotate(-5deg); }
+    40%      { transform: translateX(8px) rotate(5deg); }
+    60%      { transform: translateX(-5px) rotate(-3deg); }
+    80%      { transform: translateX(5px) rotate(3deg); }
+  }
+  .bear-img.thonk { animation: thonk 2s ease-in-out infinite; }
+  @keyframes thonk {
+    0%,100% { transform: rotate(0deg) translateY(0); }
+    30%      { transform: rotate(-4deg) translateY(-4px); }
+    60%      { transform: rotate(4deg) translateY(-2px); }
+  }
+  .bear-img.blush-in { animation: blushIn 0.6s ease forwards; }
+  @keyframes blushIn {
+    0%   { transform: scale(0.6) rotate(-10deg); opacity: 0; }
+    60%  { transform: scale(1.12) rotate(3deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .title {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.65rem; color: var(--brown); line-height: 1.3;
+  }
+  .subtitle {
+    font-size: 0.88rem; color: var(--mocha-lt);
+    font-style: italic; font-weight: 600; min-height: 20px;
+    transition: all 0.3s;
+  }
+  .warning {
+    font-size: 0.82rem; color: var(--pink); font-weight: 700;
+    min-height: 20px; opacity: 0; transition: opacity 0.3s;
+  }
+  .warning.show { opacity: 1; }
+  .hearts-row {
+    font-size: 1.2rem; letter-spacing: 5px;
+    animation: sparkleRow 2s ease-in-out infinite;
+  }
+  @keyframes sparkleRow {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.08); opacity: 0.75; }
+  }
+  .btn-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; flex-wrap: wrap; margin-top: 0.3rem;
+  }
+  .btn-yes {
+    background: linear-gradient(135deg, #ff8fab, #ff6b9d, #e8498a);
+    color: #fff; border: none; border-radius: 50px;
+    font-family: 'Nunito', sans-serif; font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255,107,157,0.45);
+    transition: transform 0.2s, box-shadow 0.2s, font-size 0.4s, padding 0.4s;
+    line-height: 1; display: inline-flex; align-items: center; gap: 6px;
+    font-size: 15px; padding: 13px 34px;
+  }
+  .btn-yes:hover { transform: scale(1.07) translateY(-2px); box-shadow: 0 10px 28px rgba(255,107,157,0.55); }
+  .btn-yes:active { transform: scale(0.97); }
+
+  /* full-screen / large state for the yes button when the user keeps clicking 'no' */
+  .btn-yes.full-yes {
+    position: fixed;
+    z-index: 2000;
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: 88vw; height: 78vh; max-width: 920px; max-height: 920px;
+    font-size: 48px !important;
+    padding: 36px !important;
+    border-radius: 20px !important;
+    box-shadow: 0 30px 80px rgba(139,94,60,0.35) !important;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  .btn-no {
+    background: transparent; color: var(--mocha-lt);
+    border: 1.5px solid rgba(212,164,122,0.5); border-radius: 50px;
+    font-family: 'Nunito', sans-serif; font-size: 0.88rem; font-weight: 700;
+    padding: 10px 24px; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-no:hover { background: rgba(250, 208, 172, 0.08); }
+  .btn-no.shake { animation: btnShake 0.38s ease; }
+  @keyframes btnShake {
+    0%,100% { transform: translateX(0); }
+    20%      { transform: translateX(-7px); }
+    40%      { transform: translateX(7px); }
+    60%      { transform: translateX(-4px); }
+    80%      { transform: translateX(4px); }
+  }
+  .message-scroll {
+    background: linear-gradient(160deg,rgba(255,214,231,0.35),rgba(255,229,196,0.35));
+    border: 1px solid rgba(255,182,203,0.4); border-radius: 18px;
+    padding: 1.1rem 1.3rem; font-size: 0.85rem; color: var(--text);
+    line-height: 1.9; text-align: left;
+    max-height: 200px; overflow-y: auto;
+    scrollbar-width: thin; scrollbar-color: var(--pink-lt) transparent;
+  }
+  .message-scroll em { color: var(--pink); font-weight: 700; font-style: normal; }
+  .message-scroll .sig { color: var(--mocha); font-weight: 800; margin-top: 0.5rem; display: block; font-style: italic; }
+  .month-badge {
+    background: linear-gradient(135deg, var(--pink), var(--mocha-lt));
+    color: #fff; font-family: 'Pacifico', cursive; font-size: 0.95rem;
+    padding: 8px 26px; border-radius: 50px;
+    box-shadow: 0 4px 14px var(--shadow);
+  }
+  .confetti {
+    position: fixed; width: 9px; height: 9px; border-radius: 2px;
+    pointer-events: none; z-index: 999;
+    animation: confettiFall linear forwards;
+  }
+  @keyframes confettiFall {
+    0%   { transform: translateY(-20px) rotate(0deg); opacity:1; }
+    80%  { opacity:1; }
+    100% { transform: translateY(110vh) rotate(820deg); opacity:0; }
+  }
+  .pulse-hearts { font-size: 2rem; animation: pulseHeart 1s ease-in-out infinite; }
+  @keyframes pulseHeart {
+    0%,100% { transform: scale(1); }
+    30%      { transform: scale(1.18); }
+    60%      { transform: scale(1.08); }
+  }
+</style>
+</head>
+<body>
+<div class="bg-blob blob1"></div>
+<div class="bg-blob blob2"></div>
+<div class="bg-blob blob3"></div>
+ 
+<div class="card">
+ 
+  <!-- Q SCREEN -->
+  <div class="screen active" id="screen-q">
+    <img id="bear-main" class="bear-img" src= 11.webp
+    <h1 class="title">do you still<br>love me?</h1>
+    <p class="subtitle" id="sub-text">Ayuhon lang ka!</p>
+    <div class="hearts-row"></div>
+    <div class="btn-row">
+      <button class="btn-yes" id="yes-btn" onclick="handleYes()">yes 💕</button>
+      <button class="btn-no"  id="no-btn"  onclick="handleNo()">no 😢</button>
+    </div>
+    <p class="warning" id="warn"></p>
+  </div>
+ 
+  <!-- SWEET SCREEN -->
+  <div class="screen" id="screen-sweet">
+    <img id="bear-blush" class="bear-img blush-in" src="7.webp">
+    <div class="month-badge">Happy Monthsary my Love🤍</div>
+    <div class="message-scroll">
+       <em>To my uyab,</em><br><br>
+      Five months of you being my absolute favorite person and somehow, every single day feels even warmer than the last 🤎<br><br>
+      you're the bitch in my life, the comfort in every moment i feel down, and the reason i smile at my phone way too much hahaha<br><br>
+      months full of jokes, late night kupalan, random kabuang, stupid memes, and tiny moments i keep replaying in my head i wouldn't trade a single second of it.<br><br>
+      you've listened when i've needed to rant, held me when i've been tired, cheered on my small wins, and made the ordinary feel so emotional kay OA kay ka!.but as you see me, silly, the stubborness inside me and you always love me anyway bisag daghan kug sayop mabuuhat, and that means everything.<br><br>
+      i love the way we make laugh about the little things, the way we laugh at the same dumb joke, the quiet comfort of doing nothing together. each memory is a warm corner i return to whenever the world gets loud.<br><br>
+      thank you for choosing me, for the care you show in tiny gestures, and for growing with me through the small, imperfect days. i love you more than words can fit, and i'll keep loving you more tomorrow and in every tomorrow after this. 🤍<br><br>
+      <span class="sig">— Your beloved mahal 🤎</span>
+    </div>
+    <div class="hearts-row" style="font-size:1.4rem;letter-spacing:7px;"></div>
+    <p class="subtitle">No choice ka para e love jd 🤭💕</p>
+  </div>
+ 
+</div>
+ 
+<script>
+  // preload bear images as local files (ordered by the user's 1.webp,2.webp,3.webp,4.webp,6.webp,7.webp)
+  const bears = {
+    normal:   '6.webp',
+    sad:      '2.webp',
+    floor:    '3.webp',
+    thinking: '4.webp',
+    blush:    '2.webp',
+    
+  };
+ 
+  let noCount = 0;
+  let yesSize = 25, yesPadV = 20, yesPadH = 34;
+ 
+  const noMsgs = [
+    "...",
+    "...",
+    "...",
+    "...",
+    "...",
+    " mwehehe💕",
+  ];
+  const subMsgs = [
+    "lab pako nimo mahal?🤔",
+    "Nasayup ra seguro ug tuplok🤭",
+    "sure ba?🥺",
+    "weeehhh?🥺",
+    "nah oyyy, bahala ka diha😢",
+    "mag yes ka or dili?",
+    
+  ];
+  // map click numbers to images directly: 1 -> normal, 2 -> sad, 3 -> floor, 4 -> thinking, 5 -> blush, 6 -> extra
+  const bearByNumber = [
+    null, // placeholder so index matches click number
+    bears.normal,
+    bears.sad,
+    bears.floor,
+    bears.thinking,
+    bears.blush,
+    bears.extra
+  ];
+
+  // how many 'no' clicks before we force the final state (remove the no button)
+  const yesMaxClickToFull = 6;
+ 
+   function handleNo() {
+     noCount++;
+     const bearImg = document.getElementById('bear-main');
+     bearImg.classList.remove('shake-bear','thonk');
+     void bearImg.offsetWidth;
+
+    // choose image according to click number; cap at last image when count exceeds list length
+    const idx = Math.min(noCount, bearByNumber.length - 1);
+    bearImg.src = bearByNumber[idx];
+
+     // trigger thonk on the 3rd click
+     if (noCount === 3) {
+       bearImg.classList.add('thonk');
+     } else {
+       bearImg.classList.add('shake-bear');
+       setTimeout(() => bearImg.classList.remove('shake-bear'), 500);
+     }
+
+    // grow the yes button progressively and more aggressively than before
+    if (noCount < yesMaxClickToFull) {
+      yesSize  = Math.min(yesSize  + 8, 64);
+      yesPadV  = Math.min(yesPadV  + 12, 220);
+      yesPadH  = Math.min(yesPadH  + 28, 420);
+    } else {
+      // final growth: make it appear full and remove the no button
+      yesSize  = 56;
+      yesPadV  = 40;
+      yesPadH  = 40;
+    }
+     const yBtn = document.getElementById('yes-btn');
+     yBtn.style.fontSize = yesSize + 'px';
+     yBtn.style.padding  = yesPadV + 'px ' + yesPadH + 'px';
+ 
+    // apply a smooth transition so the button grows smoothly
+    yBtn.style.transition = 'all 0.45s ease';
+ 
+     const noBtn = document.getElementById('no-btn');
+    if (noBtn) {
+      noBtn.classList.remove('shake');
+      void noBtn.offsetWidth;
+      noBtn.classList.add('shake');
+      setTimeout(() => noBtn.classList.remove('shake'), 400);
+    }
+
+     const warn = document.getElementById('warn');
+     warn.textContent = noMsgs[Math.min(noCount - 1, noMsgs.length - 1)];
+     warn.classList.add('show');
+
+     document.getElementById('sub-text').textContent =
+       subMsgs[Math.min(noCount, subMsgs.length - 1)];
+ 
+    // When the user reaches the threshold, remove the no button and expand the yes button to a prominent full state
+    if (noCount >= yesMaxClickToFull) {
+      // fade out and hide the no button but keep layout intact so the image above doesn't shift or disappear
+      if (noBtn) {
+        // fade visually but keep in DOM and preserve layout space
+        noBtn.style.transition = 'opacity 420ms ease, visibility 0ms linear 420ms';
+        noBtn.style.opacity = '0';
+        // hide visually but keep its layout box to prevent reflow
+        noBtn.style.visibility = 'hidden';
+        noBtn.style.pointerEvents = 'none';
+        // ensure it stays in DOM (do not remove or set display:none)
+      }
+
+      // give the yes button the 'full-yes' class to make it nearly full-screen
+      setTimeout(() => {
+        yBtn.classList.add('full-yes');
+        // ensure it's very prominent
+        yBtn.style.fontSize = '46px';
+        yBtn.style.padding = '34px 48px';
+      }, 300);
+    }
+   }
+
+   function handleYes() {
+    spawnConfetti();
+    document.getElementById('screen-q').classList.remove('active');
+    setTimeout(() => {
+      document.getElementById('screen-sweet').classList.add('active');
+    }, 120);
+  }
+ 
+  function spawnConfetti() {
+    const colors = ['#ff6b9d','#ffb3c6','#ffd6e7','#d4a47a','#8b5e3c','#ffc8dd','#ffafcc','#fff0f5'];
+    for (let i = 0; i < 60; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.left = (Math.random() * 100) + 'vw';
+      c.style.borderRadius = Math.random() > 0.45 ? '50%' : '2px';
+      const dur = 1.8 + Math.random() * 1.8;
+      c.style.animationDuration = dur + 's';
+      c.style.animationDelay = (Math.random() * 1.5) + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), (dur + 2) * 1000);
+    }
+  }
+</script>
+</body>
+</html>
